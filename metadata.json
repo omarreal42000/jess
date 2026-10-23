@@ -1,0 +1,6 @@
+{
+  "name": "Universo de Recuerdos - Galaxia de Jess",
+  "description": "Un viaje interactivo por el cosmos descubriendo constelaciones de recuerdos, fotos y momentos inolvidables dedicados a una persona muy especial.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
