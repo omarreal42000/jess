@@ -18,7 +18,8 @@ export const AVAILABLE_PHOTOS = [
   '/assets/aistudio/jess18_c68bb516.jpg',
   '/assets/aistudio/jess17_40f1010b.jpg',
   '/assets/aistudio/jess11_5b09cd2f.jpg',
-  '/assets/aistudio/jess15_9ab0c00b.jpg'
+  '/assets/aistudio/jess15_9ab0c00b.jpg',
+  '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png'
 ];
 
 export const INITIAL_MEMORIES: Memory[] = [
@@ -214,7 +215,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: '¡Feliz Cumpleaños, Jess!',
     date: 'Núcleo Central · Estrella Radiante',
     description: 'El legendario pastel de Barbie y la sonrisa más hermosa para celebrar tu vida. Que este nuevo año en tu vida esté lleno de bendiciones inmensas, salud inquebrantable, éxito en cada proyecto y personas que te amen tanto como te lo mereces. ¡Gracias por existir y ser tan única!',
-    image: '/assets/aistudio/jess23_f4b16d3a.jpg',
+    image: '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png',
     x: 50,
     y: 50,
     category: 'Cumpleaños',
