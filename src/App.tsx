@@ -16,56 +16,86 @@ import { saveMemoriesToDisk } from './utils/syncMemories';
 const CENTER_STAR: Memory = {
   id: 'mem-center-core',
   title: '¡Feliz Cumpleaños, Jess!',
-  date: 'Estrella Central',
-  description: 'Para la persona más especial de toda la galaxia. Que el universo entero conspire para llenarte de bendiciones, salud, amor y sueños cumplidos hoy y siempre. ¡Feliz Cumpleaños!',
-  image: '/assets/aistudio/jess23_f4b16d3a.jpg',
+  date: 'Núcleo Central · Estrella Radiante',
+  description: 'El legendario pastel de Barbie y la sonrisa más hermosa para celebrar tu vida. Que este nuevo año esté lleno de bendiciones inmensas, salud inquebrantable, éxito en cada proyecto y personas que te amen tanto como te lo mereces. ¡Feliz Cumpleaños!',
+  image: '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png',
   x: 50,
   y: 50,
   category: 'Cumpleaños',
-  isCore: true
+  isCore: true,
+  notes: 'La estrella más brillante de toda la galaxia. ¡Feliz día!'
 };
 
-export default function App() {
-  // Memories state with LocalStorage persistence: preserves 100% of user edits and guarantees center star exists
-  const [memories, setMemories] = useState<Memory[]>(() => {
+function loadSavedMemories(): Memory[] {
+  const possibleKeys = [
+    'jess_galaxy_memories_v2',
+    'jess_galaxy_memories',
+    'galaxy_memories',
+    'jess_memories',
+    'memories',
+    'memories_data'
+  ];
+  for (const k of possibleKeys) {
     try {
-      const saved = localStorage.getItem('jess_galaxy_memories_v2');
+      const saved = localStorage.getItem(k);
       if (saved) {
         const parsed: Memory[] = JSON.parse(saved);
-        // Find if center star already exists
-        const centerIndex = parsed.findIndex(
-          m => m.isCore || (Math.abs(m.x - 50) < 3 && Math.abs(m.y - 50) < 3)
-        );
-        if (centerIndex === -1) {
-          // Add the central star while strictly preserving all existing edited memories
-          return [...parsed, CENTER_STAR];
-        } else {
-          // Ensure it has isCore and center coordinates
-          parsed[centerIndex] = {
-            ...parsed[centerIndex],
-            x: 50,
-            y: 50,
-            isCore: true
-          };
-          return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const centerIndex = parsed.findIndex(
+            m => m.isCore || (Math.abs(m.x - 50) < 3 && Math.abs(m.y - 50) < 3)
+          );
+          if (centerIndex === -1) {
+            return [...parsed, CENTER_STAR];
+          } else {
+            parsed[centerIndex] = {
+              ...parsed[centerIndex],
+              x: 50,
+              y: 50,
+              isCore: true,
+              image: parsed[centerIndex].image || CENTER_STAR.image
+            };
+            return parsed;
+          }
         }
       }
     } catch {
-      // fallback
+      // try next key
     }
-    return INITIAL_MEMORIES;
-  });
+  }
+  return INITIAL_MEMORIES;
+}
 
-  // Dedication letter state with LocalStorage persistence
-  const [letterData, setLetterData] = useState(() => {
+function loadSavedLetter(): typeof INITIAL_DEDICATION_LETTER {
+  const possibleKeys = [
+    'jess_galaxy_letter_v2',
+    'jess_galaxy_letter',
+    'galaxy_letter',
+    'jess_letter',
+    'letter_data'
+  ];
+  for (const k of possibleKeys) {
     try {
-      const saved = localStorage.getItem('jess_galaxy_letter_v2');
-      if (saved) return JSON.parse(saved);
+      const saved = localStorage.getItem(k);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
     } catch {
-      // fallback
+      // try next key
     }
-    return INITIAL_DEDICATION_LETTER;
-  });
+  }
+  return INITIAL_DEDICATION_LETTER;
+}
+
+export default function App() {
+  // Memories state with robust multi-key persistence
+  const [memories, setMemories] = useState<Memory[]>(loadSavedMemories);
+
+  // Dedication letter state
+  const [letterData, setLetterData] = useState(loadSavedLetter);
+
+  // Sync notification toast
+  const [syncToast, setSyncToast] = useState<string | null>(null);
 
   // UI States
   const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null);
@@ -82,12 +112,18 @@ export default function App() {
 
   const tourTimerRef = useRef<number | null>(null);
 
-  // Save to localStorage when memories update & auto-sync to project code on disk
+  // Auto-sync on mount and whenever memories change
   useEffect(() => {
     try {
       localStorage.setItem('jess_galaxy_memories_v2', JSON.stringify(memories));
-      // Auto-sync immediately into src/data/initialMemories.ts so GitHub updates are persistent
-      saveMemoriesToDisk(memories, letterData).catch(() => {});
+      saveMemoriesToDisk(memories, letterData)
+        .then(ok => {
+          if (ok) {
+            setSyncToast('Guardado en código para GitHub');
+            setTimeout(() => setSyncToast(null), 3500);
+          }
+        })
+        .catch(() => {});
     } catch {
       // ignore
     }
@@ -283,6 +319,14 @@ export default function App() {
         onOpenOrganizer={() => setIsOrganizerOpen(true)}
         onOpenSaveToGithub={() => setIsGithubModalOpen(true)}
       />
+
+      {/* Sync Toast Notification */}
+      {syncToast && (
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-emerald-200 text-xs font-medium shadow-lg backdrop-blur-md flex items-center gap-2 animate-fadeIn pointer-events-none">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>{syncToast}</span>
+        </div>
+      )}
 
       {/* 5. Memory Presentation Modal (Postal Completa con Modo Edición) */}
       <MemoryModal
