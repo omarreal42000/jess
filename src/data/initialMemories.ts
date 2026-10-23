@@ -19,7 +19,8 @@ export const AVAILABLE_PHOTOS = [
   '/assets/aistudio/jess17_40f1010b.jpg',
   '/assets/aistudio/jess11_5b09cd2f.jpg',
   '/assets/aistudio/jess15_9ab0c00b.jpg',
-  '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png'
+  '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png',
+  '/assets/aistudio/jess1.jpg'
 ];
 
 export const INITIAL_MEMORIES: Memory[] = [

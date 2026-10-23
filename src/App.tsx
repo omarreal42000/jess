@@ -7,9 +7,11 @@ import { CosmicLetterModal } from './components/CosmicLetterModal';
 import { MemoryEditorModal } from './components/MemoryEditorModal';
 import { MemoryOrganizerModal } from './components/MemoryOrganizerModal';
 import { CosmicControls } from './components/CosmicControls';
+import { GithubSyncModal } from './components/GithubSyncModal';
 import { INITIAL_MEMORIES, INITIAL_DEDICATION_LETTER } from './data/initialMemories';
 import { Memory, CategoryFilter } from './types/galaxy';
 import { cosmicAudio } from './utils/audio';
+import { saveMemoriesToDisk } from './utils/syncMemories';
 
 const CENTER_STAR: Memory = {
   id: 'mem-center-core',
@@ -71,6 +73,7 @@ export default function App() {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isLetterOpen, setIsLetterOpen] = useState(false);
   const [isOrganizerOpen, setIsOrganizerOpen] = useState(false);
+  const [isGithubModalOpen, setIsGithubModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('Todas');
   const [showConstellations, setShowConstellations] = useState(true);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
@@ -79,14 +82,16 @@ export default function App() {
 
   const tourTimerRef = useRef<number | null>(null);
 
-  // Save to localStorage when memories update
+  // Save to localStorage when memories update & auto-sync to project code on disk
   useEffect(() => {
     try {
       localStorage.setItem('jess_galaxy_memories_v2', JSON.stringify(memories));
+      // Auto-sync immediately into src/data/initialMemories.ts so GitHub updates are persistent
+      saveMemoriesToDisk(memories, letterData).catch(() => {});
     } catch {
       // ignore
     }
-  }, [memories]);
+  }, [memories, letterData]);
 
   // Save letter to localStorage
   const handleSaveLetter = (data: typeof INITIAL_DEDICATION_LETTER) => {
@@ -276,6 +281,7 @@ export default function App() {
         onToggleMusic={handleToggleMusic}
         onOpenLetter={() => setIsLetterOpen(true)}
         onOpenOrganizer={() => setIsOrganizerOpen(true)}
+        onOpenSaveToGithub={() => setIsGithubModalOpen(true)}
       />
 
       {/* 5. Memory Presentation Modal (Postal Completa con Modo Edición) */}
@@ -316,6 +322,14 @@ export default function App() {
         onSelectToEdit={mem => {
           setSelectedMemory(mem);
         }}
+      />
+
+      {/* 9. GitHub Sync & Code Export Modal */}
+      <GithubSyncModal
+        isOpen={isGithubModalOpen}
+        onClose={() => setIsGithubModalOpen(false)}
+        memories={memories}
+        letterData={letterData}
       />
     </div>
   );
