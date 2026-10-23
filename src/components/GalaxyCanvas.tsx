@@ -283,10 +283,10 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = () => {
         centerY,
         140
       );
-      coreGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      coreGrad.addColorStop(0.15, 'rgba(254, 243, 199, 0.85)');
-      coreGrad.addColorStop(0.35, 'rgba(192, 132, 252, 0.5)');
-      coreGrad.addColorStop(0.7, 'rgba(147, 51, 234, 0.15)');
+      coreGrad.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+      coreGrad.addColorStop(0.15, 'rgba(254, 243, 199, 0.25)');
+      coreGrad.addColorStop(0.35, 'rgba(192, 132, 252, 0.18)');
+      coreGrad.addColorStop(0.7, 'rgba(147, 51, 234, 0.08)');
       coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
       ctx.fillStyle = coreGrad;
@@ -300,7 +300,7 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = () => {
       ctx.rotate(galaxyRotation * 0.5);
       const coreSpikeGrad = ctx.createLinearGradient(-120, 0, 120, 0);
       coreSpikeGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      coreSpikeGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.7)');
+      coreSpikeGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
       coreSpikeGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
       ctx.strokeStyle = coreSpikeGrad;

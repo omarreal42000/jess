@@ -111,29 +111,31 @@ export const CelestialNode: React.FC<CelestialNodeProps> = ({
         className={`absolute inset-0 -m-4 rounded-full pointer-events-none transition-opacity duration-500 ${
           isHovered || isFocusedInTour || isActive
             ? 'opacity-100 scale-125'
+            : isCore
+            ? 'opacity-85 animate-pulse'
             : 'opacity-40 animate-pulse'
         }`}
         style={{
           background: `radial-gradient(circle, ${theme.glow} 0%, rgba(0,0,0,0) 70%)`,
-          filter: `blur(${isCore ? '12px' : '8px'})`
+          filter: `blur(${isCore ? '16px' : '8px'})`
         }}
       />
 
       {/* Orbiting Celestial Ring (Slow rotation) */}
       <div
-        className={`absolute -inset-2.5 rounded-full border border-dashed pointer-events-none animate-spin ${
-          isCore ? 'border-amber-300/40 w-12 h-12 -inset-3' : 'border-white/20'
+        className={`absolute rounded-full border border-dashed pointer-events-none animate-spin ${
+          isCore ? 'border-amber-300/60 w-16 h-16 -inset-4.5' : '-inset-2.5 border-white/20'
         }`}
-        style={{ animationDuration: isCore ? '14s' : '18s' }}
+        style={{ animationDuration: isCore ? '12s' : '18s' }}
       />
 
       {/* Radiant Star Vector Component */}
       <div
         className={`relative flex items-center justify-center transition-all duration-300 ${
-          isCore ? 'w-9 h-9' : 'w-7 h-7'
+          isCore ? 'w-11 h-11' : 'w-7 h-7'
         }`}
         style={{
-          filter: `drop-shadow(0 0 ${isCore ? '14px' : '8px'} ${theme.glow})`
+          filter: `drop-shadow(0 0 ${isCore ? '18px' : '8px'} ${theme.glow})`
         }}
       >
         <svg

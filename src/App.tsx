@@ -11,12 +11,43 @@ import { INITIAL_MEMORIES, INITIAL_DEDICATION_LETTER } from './data/initialMemor
 import { Memory, CategoryFilter } from './types/galaxy';
 import { cosmicAudio } from './utils/audio';
 
+const CENTER_STAR: Memory = {
+  id: 'mem-center-core',
+  title: '¡Feliz Cumpleaños, Jess!',
+  date: 'Estrella Central',
+  description: 'Para la persona más especial de toda la galaxia. Que el universo entero conspire para llenarte de bendiciones, salud, amor y sueños cumplidos hoy y siempre. ¡Feliz Cumpleaños!',
+  image: '/assets/aistudio/jess23_f4b16d3a.jpg',
+  x: 50,
+  y: 50,
+  category: 'Cumpleaños',
+  isCore: true
+};
+
 export default function App() {
-  // Memories state with LocalStorage persistence
+  // Memories state with LocalStorage persistence: preserves 100% of user edits and guarantees center star exists
   const [memories, setMemories] = useState<Memory[]>(() => {
     try {
       const saved = localStorage.getItem('jess_galaxy_memories_v2');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: Memory[] = JSON.parse(saved);
+        // Find if center star already exists
+        const centerIndex = parsed.findIndex(
+          m => m.isCore || (Math.abs(m.x - 50) < 3 && Math.abs(m.y - 50) < 3)
+        );
+        if (centerIndex === -1) {
+          // Add the central star while strictly preserving all existing edited memories
+          return [...parsed, CENTER_STAR];
+        } else {
+          // Ensure it has isCore and center coordinates
+          parsed[centerIndex] = {
+            ...parsed[centerIndex],
+            x: 50,
+            y: 50,
+            isCore: true
+          };
+          return parsed;
+        }
+      }
     } catch {
       // fallback
     }
