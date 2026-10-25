@@ -1,24 +1,26 @@
 import { Memory } from '../types/galaxy';
 
 export const AVAILABLE_PHOTOS = [
-  '/assets/aistudio/jess13_ad180d37.jpg',
-  '/assets/aistudio/jess1.jpg',
-  '/assets/aistudio/jess16_2666fdf9.jpg',
   '/assets/aistudio/jess4_7d843509.jpg',
-  '/assets/aistudio/jess20_21a483ff.jpg',
-  '/assets/aistudio/jess14_4bb33e28.jpg',
-  '/assets/aistudio/jess11_5b09cd2f.jpg',
-  '/assets/aistudio/jess18_c68bb516.jpg',
-  '/assets/aistudio/jess9_68ce4276.jpg',
-  '/assets/aistudio/jess19_a02ea029.jpg',
-  '/assets/aistudio/jess8_aca7e7fe.jpg',
-  '/assets/aistudio/jess7_73770d99.jpg',
-  '/assets/aistudio/jess17_40f1010b.jpg',
-  '/assets/aistudio/jess3_e90783af.jpg',
-  '/assets/aistudio/jess6_0428721e.jpg',
   '/assets/aistudio/jess2_c6721b3c.jpg',
+  '/assets/aistudio/jess9_68ce4276.jpg',
+  '/assets/aistudio/jess14_4bb33e28.jpg',
   '/assets/aistudio/jess15_9ab0c00b.jpg',
-  '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png'
+  '/assets/aistudio/jess13_ad180d37.jpg',
+  '/assets/aistudio/jess7_73770d99.jpg',
+  '/assets/aistudio/jess18_c68bb516.jpg',
+  '/assets/aistudio/jess6_0428721e.jpg',
+  '/assets/aistudio/jess11_5b09cd2f.jpg',
+  '/assets/aistudio/jess16_2666fdf9.jpg',
+  '/assets/aistudio/jess20_21a483ff.jpg',
+  '/assets/aistudio/jess3_e90783af.jpg',
+  '/assets/aistudio/jess19_a02ea029.jpg',
+  '/assets/aistudio/jess17_40f1010b.jpg',
+  '/assets/aistudio/jess12_85a1a381.jpg',
+  '/assets/aistudio/jess8_aca7e7fe.jpg',
+  '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png',
+  '/assets/aistudio/jess1.jpg',
+  '/assets/aistudio/jess23_f4b16d3a.jpg'
 ];
 
 export const INITIAL_MEMORIES: Memory[] = [
@@ -27,7 +29,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'llamadas....',
     date: 'Estrella 01',
     description: 'te tomaba screen cuando hacías caras :P',
-    image: '/assets/aistudio/jess13_ad180d37.jpg',
+    image: '/assets/aistudio/jess4_7d843509.jpg',
     x: 14,
     y: 22,
     category: 'Llamadas'
@@ -37,7 +39,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'gemelo',
     date: 'Estrella 02',
     description: 'me acuerdo que no me creías que tenia un gemelo y tuve que hacerle un examen de química para que aceptara ir a la prepa para que lo conocieran ......',
-    image: '/assets/aistudio/jess1.jpg',
+    image: '/assets/aistudio/jess2_c6721b3c.jpg',
     x: 28,
     y: 16,
     category: 'Aventuras'
@@ -47,7 +49,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'heyyyy ...',
     date: 'Estrella 03',
     description: 'foto en el espejo no podia faltar ....',
-    image: '/assets/aistudio/jess16_2666fdf9.jpg',
+    image: '/assets/aistudio/jess9_68ce4276.jpg',
     x: 42,
     y: 20,
     category: 'Momentos'
@@ -57,7 +59,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'zoo',
     date: 'Estrella 04',
     description: 'la ultima vez que fui al zoológico, muy chido dia!! .... ya cerraron selva magica :(',
-    image: '/assets/aistudio/jess4_7d843509.jpg',
+    image: '/assets/aistudio/jess14_4bb33e28.jpg',
     x: 18,
     y: 38,
     category: 'Aventuras'
@@ -67,7 +69,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'filtro de perro',
     date: 'Estrella 05',
     description: 'no entiendo como me convenciste para tomarme esa foto...',
-    image: '/assets/aistudio/jess20_21a483ff.jpg',
+    image: '/assets/aistudio/jess15_9ab0c00b.jpg',
     x: 32,
     y: 35,
     category: 'Risas'
@@ -77,7 +79,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'llamadas...',
     date: 'Estrella 06',
     description: 'saquese las ideass!',
-    image: '/assets/aistudio/jess14_4bb33e28.jpg',
+    image: '/assets/aistudio/jess13_ad180d37.jpg',
     x: 12,
     y: 58,
     category: 'Llamadas'
@@ -87,7 +89,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'tuuuuuu!!',
     date: 'Estrella 07',
     description: 'siempre que veo esas hojas me acuerdo de ti',
-    image: '/assets/aistudio/jess11_5b09cd2f.jpg',
+    image: '/assets/aistudio/jess7_73770d99.jpg',
     x: 26,
     y: 66,
     category: 'Especial'
@@ -107,7 +109,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'llamadas ...',
     date: 'Estrella 09',
     description: 'riendonos de todo, de verdad me gustaba mucho hablar contigo ....',
-    image: '/assets/aistudio/jess9_68ce4276.jpg',
+    image: '/assets/aistudio/jess6_0428721e.jpg',
     x: 38,
     y: 78,
     category: 'Llamadas'
@@ -117,7 +119,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'cinepolis .',
     date: 'Estrella 10',
     description: 'eres bieeeeen miedosa diario te tapabas jajajajaja ... te recomiendo la de La de inidious 4 !! o la de el rito !! ....',
-    image: '/assets/aistudio/jess19_a02ea029.jpg',
+    image: '/assets/aistudio/jess11_5b09cd2f.jpg',
     x: 84,
     y: 36,
     category: 'Especial'
@@ -127,7 +129,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'yeahhh',
     date: 'Estrella 11',
     description: 'gracias por pasarme tantas tareas jeje te debo la graduada de la prepa ,,,',
-    image: '/assets/aistudio/jess8_aca7e7fe.jpg',
+    image: '/assets/aistudio/jess16_2666fdf9.jpg',
     x: 58,
     y: 34,
     category: 'Logros'
@@ -137,7 +139,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'tirando rostro ...',
     date: 'Estrella 12',
     description: 'me acuerdooo cuando ibas a tus cursos de AS jeje me gustaba ir al centro ...',
-    image: '/assets/aistudio/jess7_73770d99.jpg',
+    image: '/assets/aistudio/jess20_21a483ff.jpg',
     x: 65,
     y: 80,
     category: 'Aventuras'
@@ -147,7 +149,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'moxaaa .--',
     date: 'Estrella 13',
     description: 'el ojilllo jajaja',
-    image: '/assets/aistudio/jess17_40f1010b.jpg',
+    image: '/assets/aistudio/jess3_e90783af.jpg',
     x: 88,
     y: 54,
     category: 'Risas'
@@ -157,7 +159,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'party',
     date: 'Estrella 14',
     description: 'nos veíamos bnnn eeee .... el dia donde trataste de enseñarme a bailar banda JAJAJA jamás lo olvidare, eres la única persona que ah logrado que baile de esas ...',
-    image: '/assets/aistudio/jess3_e90783af.jpg',
+    image: '/assets/aistudio/jess19_a02ea029.jpg',
     x: 75,
     y: 20,
     category: 'Eventos'
@@ -167,7 +169,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'randoom',
     date: 'Estrella 15',
     description: 'virolaaa',
-    image: '/assets/aistudio/jess6_0428721e.jpg',
+    image: '/assets/aistudio/jess17_40f1010b.jpg',
     x: 52,
     y: 85,
     category: 'Risas'
@@ -177,7 +179,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'llamadas ....',
     date: 'Estrella 16',
     description: 'le tomaba ss de que se me desconectaba la llamada para que me creas que no te colgaba porque me robaba el internet jaajaja ,,,,,',
-    image: '/assets/aistudio/jess2_c6721b3c.jpg',
+    image: '/assets/aistudio/jess12_85a1a381.jpg',
     x: 62,
     y: 15,
     category: 'Llamadas'
@@ -187,7 +189,7 @@ export const INITIAL_MEMORIES: Memory[] = [
     title: 'llamadas ,',
     date: 'Estrella 17',
     description: 'ya tenias sueño y no te dejaba dormir ? :$ ....',
-    image: '/assets/aistudio/jess15_9ab0c00b.jpg',
+    image: '/assets/aistudio/jess8_aca7e7fe.jpg',
     x: 80,
     y: 72,
     category: 'Llamadas'

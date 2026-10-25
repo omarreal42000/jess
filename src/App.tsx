@@ -27,8 +27,9 @@ const CENTER_STAR: Memory = {
 };
 
 function loadSavedMemories(): Memory[] {
-  // Purge legacy storage keys so older placeholder sessions never overwrite canonical code
+  // Purge legacy storage keys so older sessions never overwrite canonical code
   const legacyKeys = [
+    'jess_galaxy_memories_v5',
     'jess_galaxy_memories_v4',
     'jess_galaxy_memories_v3',
     'jess_galaxy_memories_v2',
@@ -47,7 +48,7 @@ function loadSavedMemories(): Memory[] {
   }
 
   try {
-    const saved = localStorage.getItem('jess_galaxy_memories_v5');
+    const saved = localStorage.getItem('jess_galaxy_memories_v6');
     if (saved) {
       const parsed: Memory[] = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {
@@ -62,6 +63,7 @@ function loadSavedMemories(): Memory[] {
 
 function loadSavedLetter(): typeof INITIAL_DEDICATION_LETTER {
   const legacyKeys = [
+    'jess_galaxy_letter_v5',
     'jess_galaxy_letter_v4',
     'jess_galaxy_letter_v3',
     'jess_galaxy_letter_v2',
@@ -79,7 +81,7 @@ function loadSavedLetter(): typeof INITIAL_DEDICATION_LETTER {
   }
 
   try {
-    const saved = localStorage.getItem('jess_galaxy_letter_v5');
+    const saved = localStorage.getItem('jess_galaxy_letter_v6');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (parsed && typeof parsed === 'object') return parsed;
@@ -118,7 +120,7 @@ export default function App() {
   // Auto-sync on mount and whenever memories change
   useEffect(() => {
     try {
-      localStorage.setItem('jess_galaxy_memories_v5', JSON.stringify(memories));
+      localStorage.setItem('jess_galaxy_memories_v6', JSON.stringify(memories));
       saveMemoriesToDisk(memories, letterData)
         .then(ok => {
           if (ok) {
@@ -136,7 +138,7 @@ export default function App() {
   const handleSaveLetter = (data: typeof INITIAL_DEDICATION_LETTER) => {
     setLetterData(data);
     try {
-      localStorage.setItem('jess_galaxy_letter_v5', JSON.stringify(data));
+      localStorage.setItem('jess_galaxy_letter_v6', JSON.stringify(data));
     } catch {
       // ignore
     }
@@ -146,7 +148,7 @@ export default function App() {
     setLetterData(INITIAL_DEDICATION_LETTER);
     try {
       localStorage.setItem(
-        'jess_galaxy_letter_v5',
+        'jess_galaxy_letter_v6',
         JSON.stringify(INITIAL_DEDICATION_LETTER)
       );
     } catch {
@@ -162,8 +164,8 @@ export default function App() {
     ) {
       setMemories(INITIAL_MEMORIES);
       setLetterData(INITIAL_DEDICATION_LETTER);
-      localStorage.removeItem('jess_galaxy_memories_v5');
-      localStorage.removeItem('jess_galaxy_letter_v5');
+      localStorage.removeItem('jess_galaxy_memories_v6');
+      localStorage.removeItem('jess_galaxy_letter_v6');
       saveMemoriesToDisk(INITIAL_MEMORIES, INITIAL_DEDICATION_LETTER).catch(() => {});
       cosmicAudio.playStarChime(1.1);
     }
