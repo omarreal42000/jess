@@ -14,10 +14,10 @@ import { cosmicAudio } from './utils/audio';
 import { saveMemoriesToDisk } from './utils/syncMemories';
 
 const CENTER_STAR: Memory = {
-  id: 'mem-center-core',
+  id: 'mem-18',
   title: '¡Feliz Cumpleaños, Jess!',
-  date: 'Núcleo Central · Estrella Radiante',
-  description: 'El legendario pastel de Barbie y la sonrisa más hermosa para celebrar tu vida. Que este nuevo año esté lleno de bendiciones inmensas, salud inquebrantable, éxito en cada proyecto y personas que te amen tanto como te lo mereces. ¡Feliz Cumpleaños!',
+  date: 'Estrella Central',
+  description: 'El legendario pastel de Barbie y la sonrisa más hermosa para celebrar tu vida. ¡Feliz Cumpleaños!',
   image: '/assets/aistudio/imagen_2026-10-23_000802387_c51f9a34.png',
   x: 50,
   y: 50,
@@ -27,7 +27,10 @@ const CENTER_STAR: Memory = {
 };
 
 function loadSavedMemories(): Memory[] {
-  const possibleKeys = [
+  // Purge legacy storage keys so older placeholder sessions never overwrite canonical code
+  const legacyKeys = [
+    'jess_galaxy_memories_v4',
+    'jess_galaxy_memories_v3',
     'jess_galaxy_memories_v2',
     'jess_galaxy_memories',
     'galaxy_memories',
@@ -35,54 +38,54 @@ function loadSavedMemories(): Memory[] {
     'memories',
     'memories_data'
   ];
-  for (const k of possibleKeys) {
+  for (const k of legacyKeys) {
     try {
-      const saved = localStorage.getItem(k);
-      if (saved) {
-        const parsed: Memory[] = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const centerIndex = parsed.findIndex(
-            m => m.isCore || (Math.abs(m.x - 50) < 3 && Math.abs(m.y - 50) < 3)
-          );
-          if (centerIndex === -1) {
-            return [...parsed, CENTER_STAR];
-          } else {
-            parsed[centerIndex] = {
-              ...parsed[centerIndex],
-              x: 50,
-              y: 50,
-              isCore: true,
-              image: parsed[centerIndex].image || CENTER_STAR.image
-            };
-            return parsed;
-          }
-        }
-      }
+      localStorage.removeItem(k);
     } catch {
-      // try next key
+      // ignore
     }
+  }
+
+  try {
+    const saved = localStorage.getItem('jess_galaxy_memories_v5');
+    if (saved) {
+      const parsed: Memory[] = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {
+    // fallback to initial
   }
   return INITIAL_MEMORIES;
 }
 
 function loadSavedLetter(): typeof INITIAL_DEDICATION_LETTER {
-  const possibleKeys = [
+  const legacyKeys = [
+    'jess_galaxy_letter_v4',
+    'jess_galaxy_letter_v3',
     'jess_galaxy_letter_v2',
     'jess_galaxy_letter',
     'galaxy_letter',
     'jess_letter',
     'letter_data'
   ];
-  for (const k of possibleKeys) {
+  for (const k of legacyKeys) {
     try {
-      const saved = localStorage.getItem(k);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed === 'object') return parsed;
-      }
+      localStorage.removeItem(k);
     } catch {
-      // try next key
+      // ignore
     }
+  }
+
+  try {
+    const saved = localStorage.getItem('jess_galaxy_letter_v5');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && typeof parsed === 'object') return parsed;
+    }
+  } catch {
+    // fallback to initial
   }
   return INITIAL_DEDICATION_LETTER;
 }
@@ -115,7 +118,7 @@ export default function App() {
   // Auto-sync on mount and whenever memories change
   useEffect(() => {
     try {
-      localStorage.setItem('jess_galaxy_memories_v2', JSON.stringify(memories));
+      localStorage.setItem('jess_galaxy_memories_v5', JSON.stringify(memories));
       saveMemoriesToDisk(memories, letterData)
         .then(ok => {
           if (ok) {
@@ -133,7 +136,7 @@ export default function App() {
   const handleSaveLetter = (data: typeof INITIAL_DEDICATION_LETTER) => {
     setLetterData(data);
     try {
-      localStorage.setItem('jess_galaxy_letter_v2', JSON.stringify(data));
+      localStorage.setItem('jess_galaxy_letter_v5', JSON.stringify(data));
     } catch {
       // ignore
     }
@@ -143,7 +146,7 @@ export default function App() {
     setLetterData(INITIAL_DEDICATION_LETTER);
     try {
       localStorage.setItem(
-        'jess_galaxy_letter_v2',
+        'jess_galaxy_letter_v5',
         JSON.stringify(INITIAL_DEDICATION_LETTER)
       );
     } catch {
@@ -159,8 +162,9 @@ export default function App() {
     ) {
       setMemories(INITIAL_MEMORIES);
       setLetterData(INITIAL_DEDICATION_LETTER);
-      localStorage.removeItem('jess_galaxy_memories_v2');
-      localStorage.removeItem('jess_galaxy_letter_v2');
+      localStorage.removeItem('jess_galaxy_memories_v5');
+      localStorage.removeItem('jess_galaxy_letter_v5');
+      saveMemoriesToDisk(INITIAL_MEMORIES, INITIAL_DEDICATION_LETTER).catch(() => {});
       cosmicAudio.playStarChime(1.1);
     }
   };
