@@ -31,6 +31,10 @@ export const CosmicLetterModal: React.FC<CosmicLetterModalProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(letterData);
 
+  React.useEffect(() => {
+    setFormData(letterData);
+  }, [letterData]);
+
   if (!isOpen) return null;
 
   const handleSave = () => {
